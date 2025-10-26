@@ -1,0 +1,228 @@
+{
+  "info": {
+    "name": "Access Package API",
+    "description": "API endpoints for Entra ID Access Package management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001",
+      "type": "string"
+    },
+    {
+      "key": "accessToken",
+      "value": "your-token-here",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          }
+        },
+        {
+          "name": "Auth Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "health"]
+            }
+          }
+        },
+        {
+          "name": "Validate Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/validate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "validate"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Access Packages",
+      "item": [
+        {
+          "name": "List All Access Packages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/access-packages",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "access-packages"]
+            }
+          }
+        },
+        {
+          "name": "Search Access Packages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/access-packages/search?q=marketing",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "access-packages", "search"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "marketing"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Access Package Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/access-packages/:packageId",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "access-packages", ":packageId"],
+              "variable": [
+                {
+                  "key": "packageId",
+                  "value": "package-guid-here"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Access Requests",
+      "item": [
+        {
+          "name": "Create Access Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"packageId\": \"package-guid-here\",\n  \"policyId\": \"policy-guid-here\",\n  \"justification\": \"I need access to complete my work on Project X\",\n  \"answers\": []\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/access-requests",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "access-requests"]
+            }
+          }
+        },
+        {
+          "name": "Get My Access Requests",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/access-requests",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "access-requests"]
+            }
+          }
+        },
+        {
+          "name": "Get Request Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/access-requests/:requestId",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "access-requests", ":requestId"],
+              "variable": [
+                {
+                  "key": "requestId",
+                  "value": "request-guid-here"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cancel Access Request",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/access-requests/:requestId",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "access-requests", ":requestId"],
+              "variable": [
+                {
+                  "key": "requestId",
+                  "value": "request-guid-here"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Access",
+      "item": [
+        {
+          "name": "Get My Assignments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/user-access/assignments",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user-access", "assignments"]
+            }
+          }
+        },
+        {
+          "name": "Get My Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/user-access/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user-access", "profile"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
